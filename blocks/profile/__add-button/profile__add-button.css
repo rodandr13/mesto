@@ -5,3 +5,10 @@
   background: url("../../../images/profile/add-icon.svg") no-repeat center center;
   cursor: pointer;
 }
+
+@media screen and (max-width: 760px) {
+  .profile__add-button {
+    width: 100%;
+    margin: 36px 0 0 0;
+  }
+}
