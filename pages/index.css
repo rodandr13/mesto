@@ -16,3 +16,11 @@
 @import "../blocks/profile/__subheader/profile__subheader.css";
 @import "../blocks/profile/__edit-button/profile__edit-button.css";
 @import "../blocks/profile/__add-button/profile__add-button.css";
+
+@import "../blocks/elements/elements.css";
+@import "../blocks/elements/__list/elements__list.css";
+
+@import "../blocks/element/element.css";
+@import "../blocks/element/__image/element__image.css";
+@import "../blocks/element/__header/element__header.css";
+@import "../blocks/element/__button/element__button.css";
