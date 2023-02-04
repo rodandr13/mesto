@@ -7,3 +7,11 @@
 @import "../blocks/page/page.css";
 
 @import "../blocks/header/header.css";
+
+@import "../blocks/profile/profile.css";
+@import "../blocks/profile/__avatar/profile__avatar.css";
+@import "../blocks/profile/__info/profile__info.css";
+@import "../blocks/profile/__header/profile__header.css";
+@import "../blocks/profile/__subheader/profile__subheader.css";
+@import "../blocks/profile/__edit-button/profile__edit-button.css";
+@import "../blocks/profile/__add-button/profile__add-button.css";
