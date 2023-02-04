@@ -22,5 +22,6 @@
 
 @import "../blocks/element/element.css";
 @import "../blocks/element/__image/element__image.css";
+@import "../blocks/element/__container/element__container.css";
 @import "../blocks/element/__header/element__header.css";
 @import "../blocks/element/__button/element__button.css";
