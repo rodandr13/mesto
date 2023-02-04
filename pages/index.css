@@ -25,3 +25,6 @@
 @import "../blocks/element/__container/element__container.css";
 @import "../blocks/element/__header/element__header.css";
 @import "../blocks/element/__button/element__button.css";
+
+@import "../blocks/footer/footer.css";
+@import "../blocks/footer/__copyright/footer__copyright.css";
