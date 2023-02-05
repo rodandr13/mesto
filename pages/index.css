@@ -29,3 +29,12 @@
 
 @import "../blocks/footer/footer.css";
 @import "../blocks/footer/__copyright/footer__copyright.css";
+
+@import "../blocks/popup/popup.css";
+@import "../blocks/popup/__container/popup__container.css";
+@import "../blocks/popup/__header/popup__header.css";
+@import "../blocks/popup/__form/popup__form.css";
+
+@import "../blocks/form/form.css";
+@import "../blocks/form/__input/form__input.css";
+@import "../blocks/form/__button/form__button.css";
