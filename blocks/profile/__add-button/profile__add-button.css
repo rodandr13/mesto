@@ -3,7 +3,7 @@
   height: 50px;
   border: 2px solid #ffffff;
   background: url("../../../images/profile/add-icon.svg") no-repeat center center;
-  background-size: 16px;
+  background-size: 22px;
   cursor: pointer;
   transition: 0.2s ease-in-out;
 }
@@ -15,6 +15,7 @@
 @media screen and (max-width: 760px) {
   .profile__add-button {
     width: 100%;
+    background-size: 22px;
     margin: 32px 0 0 0;
   }
 }
