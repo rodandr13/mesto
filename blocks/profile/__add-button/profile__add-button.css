@@ -5,6 +5,11 @@
   background: url("../../../images/profile/add-icon.svg") no-repeat center center;
   background-size: 16px;
   cursor: pointer;
+  transition: 0.2s ease-in-out;
+}
+
+.profile__add-button:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 760px) {
