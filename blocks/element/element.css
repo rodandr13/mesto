@@ -1,6 +1,6 @@
 .element {
   list-style-type: none;
   border-radius: 10px;
-  overflow: hidden;
   background: #ffffff;
+  overflow: hidden;
 }
