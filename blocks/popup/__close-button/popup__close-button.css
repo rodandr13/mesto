@@ -3,9 +3,19 @@
   top: -40px;
   right: -40px;
   background: url("../../../images/popup/close-icon.svg") no-repeat center center;
+  background-size: contain;
   width: 32px;
   height: 32px;
   border: none;
   outline: none;
   cursor: pointer;
+}
+
+@media screen and (max-width: 560px) {
+  .popup__close-button {
+    width: 20px;
+    height: 20px;
+    right: 0;
+    top: -36px;
+  }
 }
