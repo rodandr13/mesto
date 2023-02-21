@@ -28,6 +28,7 @@
 @import "../blocks/element/__header/element__header.css";
 @import "../blocks/element/__button/element__button.css";
 @import "../blocks/element/__button/_type/element__button_type_remove.css";
+@import "../blocks/element/__button/_type/element__button_type_like.css";
 
 @import "../blocks/footer/footer.css";
 @import "../blocks/footer/__copyright/footer__copyright.css";
