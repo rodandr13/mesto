@@ -8,6 +8,16 @@ let popupEditProfileCloseBtn = document.querySelector('.popup__close-button');
 let nameInput = document.querySelector('.form__input_type_name');
 let jobInput = document.querySelector('.form__input_type_job');
 
+let elements = document.querySelectorAll('.element');
+
+function removeElem(event) {
+  event.target.closest('.element').remove();
+}
+
+elements.forEach(function (elem) {
+  elem.addEventListener('click', removeElem);
+});
+
 function popupEditProfileOpen() {
   popupEditProfile.classList.add('popup_opened');
   nameInput.value = profileName.textContent;
