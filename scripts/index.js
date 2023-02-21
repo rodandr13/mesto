@@ -15,7 +15,7 @@ function removeElem(event) {
 }
 
 elements.forEach(function (elem) {
-  elem.addEventListener('click', removeElem);
+  elem.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
 });
 
 function popupEditProfileOpen() {
