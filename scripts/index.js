@@ -2,6 +2,9 @@ const addPlaceBtn = document.querySelector('.profile__add-button');
 let popupAddPlace = document.querySelector('.popup_type_add-place');
 let popupAddPlaceCloseBtn = popupAddPlace.querySelector('.popup__close-button');
 
+const popupFullImage = document.querySelector('.popup_type_image');
+let popupFullImageCloseBtn = popupFullImage.querySelector('.popup__close-button');
+
 let editProfileBtn = document.querySelector('.profile__edit-button');
 let profileName = document.querySelector('.profile__header');
 let profileJob = document.querySelector('.profile__subheader');
@@ -14,11 +17,26 @@ let jobInput = document.querySelector('.form__input_type_job');
 
 let elements = document.querySelectorAll('.element');
 
+function popupImage(event) {
+  event.preventDefault();
+  popupFullImage.querySelector('.popup__image').src = event.target.src;
+  popupFullImage.querySelector('.popup__image-caption').textContent = event.target.closest('.element').querySelector('.element__header').textContent;
+  popupImageOpen();
+}
+
+function popupImageOpen() {
+  popupFullImage.classList.add('popup_opened');
+}
+function popupImageClose() {
+  popupFullImage.classList.remove('popup_opened')
+}
+
 function removeElem(event) {
   event.target.closest('.element').remove();
 }
 
 elements.forEach(function (elem) {
+  elem.querySelector('.element__link-full-image').addEventListener('click', popupImage);
   elem.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
   elem.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
 });
@@ -50,6 +68,8 @@ function handleFormSubmit(evt) {
   profileJob.textContent = jobInput.value;
   popupEditProfileClose();
 }
+
+popupFullImageCloseBtn.addEventListener('click', popupImageClose);
 
 editProfileBtn.addEventListener('click', popupEditProfileOpen);
 popupEditProfileCloseBtn.addEventListener('click', popupEditProfileClose);
