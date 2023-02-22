@@ -20,7 +20,12 @@ function removeElem(event) {
 
 elements.forEach(function (elem) {
   elem.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
+  elem.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
 });
+
+function likeToggle(event) {
+  event.target.classList.toggle('element__button_like-active');
+}
 
 function popupAddPlaceOpen() {
   popupAddPlace.classList.add('popup_opened')
