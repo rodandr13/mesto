@@ -1,11 +1,12 @@
 const addPlaceBtn = document.querySelector('.profile__add-button');
+let popupAddPlace = document.querySelector('.popup_type_add-place');
+let popupAddPlaceCloseBtn = popupAddPlace.querySelector('.popup__close-button');
 
 let editProfileBtn = document.querySelector('.profile__edit-button');
 let profileName = document.querySelector('.profile__header');
 let profileJob = document.querySelector('.profile__subheader');
 
 let popupEditProfile = document.querySelector('.popup');
-let popupAddPlace = document.querySelector('.popup_type_add-place');
 let formElement = document.querySelector('.popup__form');
 let popupEditProfileCloseBtn = document.querySelector('.popup__close-button');
 let nameInput = document.querySelector('.form__input_type_name');
@@ -46,7 +47,8 @@ function handleFormSubmit(evt) {
 }
 
 editProfileBtn.addEventListener('click', popupEditProfileOpen);
-addPlaceBtn.addEventListener('click', popupAddPlaceOpen);
-popupAddPlace.addEventListener('click', popupAddPlaceClose);
 popupEditProfileCloseBtn.addEventListener('click', popupEditProfileClose);
 formElement.addEventListener('submit', handleFormSubmit);
+
+addPlaceBtn.addEventListener('click', popupAddPlaceOpen);
+popupAddPlaceCloseBtn.addEventListener('click', popupAddPlaceClose);
