@@ -1,3 +1,34 @@
+const initialCards = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+
+const elementTemplate = document.querySelector('#element').content;
+const elementsList = document.querySelector('.elements__list');
+
 const addPlaceBtn = document.querySelector('.profile__add-button');
 let popupAddPlace = document.querySelector('.popup_type_add-place');
 let popupAddPlaceCloseBtn = popupAddPlace.querySelector('.popup__close-button');
@@ -17,6 +48,19 @@ let jobInput = document.querySelector('.form__input_type_job');
 
 let elements = document.querySelectorAll('.element');
 
+function generateElements() {
+
+  initialCards.forEach(function (elem) {
+    const element = elementTemplate.querySelector('.element').cloneNode(true);
+    element.querySelector('.element__header').textContent = elem.name;
+    element.querySelector('.element__image').src = elem.link;
+    elementsList.append(element);
+  })
+
+}
+
+generateElements();
+
 function popupImage(event) {
   event.preventDefault();
   popupFullImage.querySelector('.popup__image').src = event.target.src;
@@ -27,6 +71,7 @@ function popupImage(event) {
 function popupImageOpen() {
   popupFullImage.classList.add('popup_opened');
 }
+
 function popupImageClose() {
   popupFullImage.classList.remove('popup_opened')
 }
@@ -48,6 +93,7 @@ function likeToggle(event) {
 function popupAddPlaceOpen() {
   popupAddPlace.classList.add('popup_opened')
 }
+
 function popupAddPlaceClose() {
   popupAddPlace.classList.remove('popup_opened')
 }
@@ -77,3 +123,4 @@ formElement.addEventListener('submit', handleFormSubmit);
 
 addPlaceBtn.addEventListener('click', popupAddPlaceOpen);
 popupAddPlaceCloseBtn.addEventListener('click', popupAddPlaceClose);
+
