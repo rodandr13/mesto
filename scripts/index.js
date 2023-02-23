@@ -52,21 +52,15 @@ const jobInput = document.querySelector('.form__input_type_job');
 
 const elements = document.querySelectorAll('.element');
 
-function generateElements() {
-  initialCards.forEach(function (elem) {
-    const element = elementTemplate.querySelector('.element').cloneNode(true);
-    element.querySelector('.element__header').textContent = elem.name;
-    element.querySelector('.element__image').src = elem.link;
-    element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
-    element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
-    element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
-
-    elementsList.append(element);
-  })
-
+function generateElements(elem) {
+  const element = elementTemplate.querySelector('.element').cloneNode(true);
+  element.querySelector('.element__header').textContent = elem.name;
+  element.querySelector('.element__image').src = elem.link;
+  element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
+  element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
+  element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
+  elementsList.append(element);
 }
-
-generateElements();
 
 function popupImage(event) {
   event.preventDefault();
@@ -145,3 +139,11 @@ formElement.addEventListener('submit', handleFormSubmit);
 addPlaceBtn.addEventListener('click', popupAddPlaceOpen);
 popupAddPlaceCloseBtn.addEventListener('click', popupAddPlaceClose);
 
+function initialData() {
+  // Предзагрузка элементов
+  initialCards.forEach(function (elem) {
+    generateElements(elem);
+  })
+}
+
+initialData();
