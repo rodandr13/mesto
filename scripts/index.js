@@ -30,27 +30,27 @@ const elementTemplate = document.querySelector('#element').content;
 const elementsList = document.querySelector('.elements__list');
 
 const addPlaceBtn = document.querySelector('.profile__add-button');
-let popupAddPlace = document.querySelector('.popup_type_add-place');
+const popupAddPlace = document.querySelector('.popup_type_add-place');
 
 const popupAddPlaceFormSubmit = document.querySelector('.popup__form_type_add-place');
 const imageName = popupAddPlace.querySelector('.form__input_type_image-name');
 const imageLink = popupAddPlace.querySelector('.form__input_type_image-link');
-let popupAddPlaceCloseBtn = popupAddPlace.querySelector('.popup__close-button');
+const popupAddPlaceCloseBtn = popupAddPlace.querySelector('.popup__close-button');
 
 const popupFullImage = document.querySelector('.popup_type_image');
-let popupFullImageCloseBtn = popupFullImage.querySelector('.popup__close-button');
+const popupFullImageCloseBtn = popupFullImage.querySelector('.popup__close-button');
 
-let editProfileBtn = document.querySelector('.profile__edit-button');
-let profileName = document.querySelector('.profile__header');
-let profileJob = document.querySelector('.profile__subheader');
+const editProfileBtn = document.querySelector('.profile__edit-button');
+const profileName = document.querySelector('.profile__header');
+const profileJob = document.querySelector('.profile__subheader');
 
-let popupEditProfile = document.querySelector('.popup');
-let formElement = document.querySelector('.popup__form');
-let popupEditProfileCloseBtn = document.querySelector('.popup__close-button');
-let nameInput = document.querySelector('.form__input_type_name');
-let jobInput = document.querySelector('.form__input_type_job');
+const popupEditProfile = document.querySelector('.popup');
+const formElement = document.querySelector('.popup__form');
+const popupEditProfileCloseBtn = document.querySelector('.popup__close-button');
+const nameInput = document.querySelector('.form__input_type_name');
+const jobInput = document.querySelector('.form__input_type_job');
 
-let elements = document.querySelectorAll('.element');
+const elements = document.querySelectorAll('.element');
 
 function generateElements() {
   initialCards.forEach(function (elem) {
@@ -123,7 +123,6 @@ function handleFormSubmit(evt) {
 }
 
 function handleFormAddElementSubmit(event) {
-  console.log('teeeeeeeeeest');
   event.preventDefault();
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__header').textContent = imageName.value;
