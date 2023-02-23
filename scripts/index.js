@@ -66,15 +66,11 @@ function popupImage(event) {
   event.preventDefault();
   popupFullImage.querySelector('.popup__image').src = event.target.src;
   popupFullImage.querySelector('.popup__image-caption').textContent = event.target.closest('.element').querySelector('.element__header').textContent;
-  popupImageOpen();
+  popupImageToggle();
 }
 
-function popupImageOpen() {
-  popupFullImage.classList.add('popup_opened');
-}
-
-function popupImageClose() {
-  popupFullImage.classList.remove('popup_opened')
+function popupImageToggle() {
+  popupFullImage.classList.toggle('popup_opened');
 }
 
 function removeElem(event) {
@@ -121,7 +117,7 @@ function handleFormAddElementSubmit(event) {
 
 popupAddPlaceFormSubmit.addEventListener('submit', handleFormAddElementSubmit);
 
-popupFullImageCloseBtn.addEventListener('click', popupImageClose);
+popupFullImageCloseBtn.addEventListener('click', popupImageToggle);
 
 editProfileBtn.addEventListener('click', popupEditProfileOpen);
 popupEditProfileCloseBtn.addEventListener('click', popupEditProfileClose);
