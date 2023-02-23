@@ -118,13 +118,8 @@ function handleFormSubmit(evt) {
 
 function handleFormAddElementSubmit(event) {
   event.preventDefault();
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  element.querySelector('.element__header').textContent = imageName.value;
-  element.querySelector('.element__image').src = imageLink.value;
-  element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
-  element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
-  element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
-  elementsList.append(element);
+  const element = {'name': imageName.value, 'link': imageLink.value};
+  generateElements(element);
   popupAddPlaceClose();
 }
 
