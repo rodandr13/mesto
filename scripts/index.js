@@ -31,6 +31,10 @@ const elementsList = document.querySelector('.elements__list');
 
 const addPlaceBtn = document.querySelector('.profile__add-button');
 let popupAddPlace = document.querySelector('.popup_type_add-place');
+
+const popupAddPlaceFormSubmit = document.querySelector('.popup__form_type_add-place');
+const imageName = popupAddPlace.querySelector('.form__input_type_image-name');
+const imageLink = popupAddPlace.querySelector('.form__input_type_image-link');
 let popupAddPlaceCloseBtn = popupAddPlace.querySelector('.popup__close-button');
 
 const popupFullImage = document.querySelector('.popup_type_image');
@@ -118,6 +122,22 @@ function handleFormSubmit(evt) {
   profileJob.textContent = jobInput.value;
   popupEditProfileClose();
 }
+
+function handleFormAddElementSubmit(event) {
+  console.log('teeeeeeeeeest');
+  event.preventDefault();
+  const element = elementTemplate.querySelector('.element').cloneNode(true);
+  element.querySelector('.element__header').textContent = imageName.value;
+  element.querySelector('.element__image').src = imageLink.value;
+  element.querySelector('.element__image').addEventListener('click', popupImage);
+  element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
+  element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
+  element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
+  elementsList.append(element);
+  popupAddPlaceClose();
+}
+
+popupAddPlaceFormSubmit.addEventListener('submit', handleFormAddElementSubmit);
 
 popupFullImageCloseBtn.addEventListener('click', popupImageClose);
 
