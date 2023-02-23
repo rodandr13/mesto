@@ -50,8 +50,6 @@ const popupEditProfileCloseBtn = document.querySelector('.popup__close-button');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
 
-const elements = document.querySelectorAll('.element');
-
 function generateElements(elem) {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__header').textContent = elem.name;
