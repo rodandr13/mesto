@@ -77,12 +77,6 @@ function removeElem(event) {
   event.target.closest('.element').remove();
 }
 
-elements.forEach(function (elem) {
-  elem.querySelector('.element__link-full-image').addEventListener('click', popupImage);
-  elem.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
-  elem.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
-});
-
 function likeToggle(event) {
   event.target.classList.toggle('element__button_like-active');
 }
