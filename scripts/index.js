@@ -57,7 +57,6 @@ function generateElements() {
     const element = elementTemplate.querySelector('.element').cloneNode(true);
     element.querySelector('.element__header').textContent = elem.name;
     element.querySelector('.element__image').src = elem.link;
-    element.querySelector('.element__image').addEventListener('click', popupImage);
     element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
     element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
     element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
@@ -129,7 +128,6 @@ function handleFormAddElementSubmit(event) {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__header').textContent = imageName.value;
   element.querySelector('.element__image').src = imageLink.value;
-  element.querySelector('.element__image').addEventListener('click', popupImage);
   element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
   element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
   element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
