@@ -91,12 +91,8 @@ function likeToggle(event) {
   event.target.classList.toggle('element__button_like-active');
 }
 
-function popupAddPlaceOpen() {
-  popupAddPlace.classList.add('popup_opened')
-}
-
-function popupAddPlaceClose() {
-  popupAddPlace.classList.remove('popup_opened')
+function popupAddPlaceToggle(event) {
+  popupAddPlace.classList.toggle('popup_opened')
 }
 
 function popupEditProfileOpen() {
@@ -120,7 +116,7 @@ function handleFormAddElementSubmit(event) {
   event.preventDefault();
   const element = {'name': imageName.value, 'link': imageLink.value};
   generateElements(element);
-  popupAddPlaceClose();
+  popupAddPlaceToggle();
 }
 
 popupAddPlaceFormSubmit.addEventListener('submit', handleFormAddElementSubmit);
@@ -131,8 +127,8 @@ editProfileBtn.addEventListener('click', popupEditProfileOpen);
 popupEditProfileCloseBtn.addEventListener('click', popupEditProfileClose);
 formElement.addEventListener('submit', handleFormSubmit);
 
-addPlaceBtn.addEventListener('click', popupAddPlaceOpen);
-popupAddPlaceCloseBtn.addEventListener('click', popupAddPlaceClose);
+addPlaceBtn.addEventListener('click', popupAddPlaceToggle);
+popupAddPlaceCloseBtn.addEventListener('click', popupAddPlaceToggle);
 
 function initialData() {
   // Предзагрузка элементов
