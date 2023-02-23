@@ -49,11 +49,15 @@ let jobInput = document.querySelector('.form__input_type_job');
 let elements = document.querySelectorAll('.element');
 
 function generateElements() {
-
   initialCards.forEach(function (elem) {
     const element = elementTemplate.querySelector('.element').cloneNode(true);
     element.querySelector('.element__header').textContent = elem.name;
     element.querySelector('.element__image').src = elem.link;
+    element.querySelector('.element__image').addEventListener('click', popupImage);
+    element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
+    element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
+    element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
+
     elementsList.append(element);
   })
 
