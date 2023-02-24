@@ -57,7 +57,7 @@ function generateElements(elem) {
   element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
   element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
 
-  elementsList.append(element);
+  elementsList.prepend(element);
 }
 
 function popupImage(event) {
@@ -81,7 +81,7 @@ function likeToggle(event) {
   event.target.classList.toggle('element__button_like-active');
 }
 
-function popupAddPlaceToggle(event) {
+function popupAddElemToggle(event) {
   popupAddElem.classList.toggle('popup_opened')
 }
 
@@ -106,7 +106,7 @@ function handleFormAddElementSubmit(event) {
   event.preventDefault();
   const element = {'name': imageName.value, 'link': imageLink.value};
   generateElements(element);
-  popupAddPlaceToggle();
+  popupAddElemToggle();
 }
 
 popupAddElemFormSubmit.addEventListener('submit', handleFormAddElementSubmit);
@@ -117,8 +117,8 @@ editProfileBtn.addEventListener('click', popupEditProfileOpen);
 popupEditProfileCloseBtn.addEventListener('click', popupEditProfileClose);
 formElement.addEventListener('submit', handleFormSubmit);
 
-addElemBtn.addEventListener('click', popupAddPlaceToggle);
-popupAddElemCloseBtn.addEventListener('click', popupAddPlaceToggle);
+addElemBtn.addEventListener('click', popupAddElemToggle);
+popupAddElemCloseBtn.addEventListener('click', popupAddElemToggle);
 
 function initialData() {
   initialCards.forEach(function (elem) {
