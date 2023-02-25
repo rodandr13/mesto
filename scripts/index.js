@@ -34,42 +34,44 @@ const imageLink = popupAddElem.querySelector('.form__input_type_image-link');
 const popupAddElemCloseBtn = popupAddElem.querySelector('.popup__close-button');
 
 const popupFullImage = document.querySelector('.popup_type_image');
+const fullImage = popupFullImage.querySelector('.popup__image');
+const fullImageCaption = popupFullImage.querySelector('.popup__image-caption')
 const popupFullImageCloseBtn = popupFullImage.querySelector('.popup__close-button');
 
-const popupEditProfile = document.querySelector('.popup_type_profile');
 const editProfileBtn = document.querySelector('.profile__edit-button');
-const formElement = document.querySelector('.popup__form');
+const popupEditProfile = document.querySelector('.popup_type_profile');
+const formProfile = popupEditProfile.querySelector('.popup__form');
 const profileName = document.querySelector('.profile__header');
 const profileJob = document.querySelector('.profile__subheader');
 const popupEditProfileCloseBtn = document.querySelector('.popup__close-button');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
 
-function generateElements(elem) {
-  const elementTemplate = document.querySelector('#element').content;
-  const element = elementTemplate.querySelector('.element').cloneNode(true);
-  const elementsList = document.querySelector('.elements__list');
+const elementTemplate = document.querySelector('#element').content;
+const elementsList = document.querySelector('.elements__list');
 
+function generateElements(elem) {
+  const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__header').textContent = elem.name;
   element.querySelector('.element__image').alt = 'Фотография: ' + elem.name;
   element.querySelector('.element__image').src = elem.link;
-  element.querySelector('.element__link-full-image').addEventListener('click', popupImage);
+  element.querySelector('.element__link-full-image').addEventListener('click', openPopupImage);
   element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
   element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
 
   elementsList.prepend(element);
 }
 
-function popupImage(event) {
+function openPopupImage(event) {
   event.preventDefault();
   const imageCaption = event.target.closest('.element').querySelector('.element__header').textContent;
-  popupFullImage.querySelector('.popup__image').src = event.target.src;
-  popupFullImage.querySelector('.popup__image').alt = 'Фотография: ' + imageCaption;
-  popupFullImage.querySelector('.popup__image-caption').textContent = imageCaption;
-  popupImageToggle();
+  fullImage.src = event.target.src;
+  fullImage.alt = 'Фотография: ' + imageCaption;
+  fullImageCaption.textContent = imageCaption;
+  openPopupFullImage();
 }
 
-function popupImageToggle() {
+function openPopupFullImage() {
   popupFullImage.classList.toggle('popup_opened');
 }
 
@@ -107,15 +109,16 @@ function handleFormAddElementSubmit(event) {
   const element = {'name': imageName.value, 'link': imageLink.value};
   generateElements(element);
   popupAddElemToggle();
+  event.target.reset();
 }
 
 popupAddElemFormSubmit.addEventListener('submit', handleFormAddElementSubmit);
 
-popupFullImageCloseBtn.addEventListener('click', popupImageToggle);
+popupFullImageCloseBtn.addEventListener('click', openPopupFullImage);
 
 editProfileBtn.addEventListener('click', popupEditProfileOpen);
 popupEditProfileCloseBtn.addEventListener('click', popupEditProfileClose);
-formElement.addEventListener('submit', handleFormSubmit);
+formProfile.addEventListener('submit', handleFormSubmit);
 
 addElemBtn.addEventListener('click', popupAddElemToggle);
 popupAddElemCloseBtn.addEventListener('click', popupAddElemToggle);
