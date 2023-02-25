@@ -55,6 +55,10 @@ closeButtons.forEach(button => {
 })
 
 function generateElements(elem) {
+  elementsList.prepend(createCard(elem));
+}
+
+function createCard(elem) {
   const element = elementTemplate.querySelector('.element').cloneNode(true);
   element.querySelector('.element__header').textContent = elem.name;
   element.querySelector('.element__image').alt = 'Фотография: ' + elem.name;
@@ -62,8 +66,7 @@ function generateElements(elem) {
   element.querySelector('.element__link-full-image').addEventListener('click', openPopupImage);
   element.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
   element.querySelector('.element__button_type_like').addEventListener('click', likeToggle);
-
-  elementsList.prepend(element);
+  return element;
 }
 
 function openPopupImage(event) {
@@ -121,9 +124,7 @@ addElemBtn.addEventListener('click', () => openPopup(popupAddElem));
 formProfile.addEventListener('submit', handleFormSubmit);
 
 function initialData() {
-  initialCards.forEach(function (elem) {
-    generateElements(elem);
-  })
+  initialCards.forEach(elem => generateElements(elem));
 }
 
 initialData();
