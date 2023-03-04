@@ -8,10 +8,5 @@
   line-height: 29px;
   font-weight: 400;
   color: #000000;
-}
-
-.form__input:focus {
-  border: none;
   outline: none;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
