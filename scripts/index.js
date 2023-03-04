@@ -36,6 +36,7 @@ const popupFullImage = document.querySelector('.popup_type_image');
 const fullImage = popupFullImage.querySelector('.popup__image');
 const fullImageCaption = popupFullImage.querySelector('.popup__image-caption')
 
+const editProfileForm = document.querySelector('.popup__form_type_edit-profile');
 const editProfileBtn = document.querySelector('.profile__edit-button');
 const popupEditProfile = document.querySelector('.popup_type_profile');
 const formProfile = popupEditProfile.querySelector('.popup__form');
@@ -91,6 +92,7 @@ function toggleLike(event) {
 function openEditProfile() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
+  validateForm(editProfileForm);
   openPopup(popupEditProfile);
 }
 
