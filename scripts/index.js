@@ -25,6 +25,8 @@ const initialCards = [
   }
 ];
 
+const popupList = document.querySelectorAll('.popup');
+
 const addElemBtn = document.querySelector('.profile__add-button');
 const popupAddElem = document.querySelector('.popup_type_add-place');
 
@@ -120,6 +122,14 @@ function openPopup(popup) {
   popup.classList.add('popup_opened');
 }
 
+const handleClosePopup = evt => {
+  if (evt.target.classList.contains('popup')) {
+    console.log(evt.target)
+    closePopup(evt.target);
+  }
+}
+
+popupList.forEach(popup => popup.addEventListener('click', handleClosePopup));
 popupAddElemFormSubmit.addEventListener('submit', handleAddElementSubmit);
 editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', () => openPopup(popupAddElem));
