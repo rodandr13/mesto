@@ -1,30 +1,3 @@
-const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
-
 const popupList = document.querySelectorAll('.popup');
 
 const addElemBtn = document.querySelector('.profile__add-button');
@@ -65,8 +38,7 @@ const openPopupImage = (event, element) => {
   fullImage.src = element.link;
   fullImage.alt = 'Фотография: ' + imageCaption;
   fullImageCaption.textContent = imageCaption;
-  const popup = fullImage.closest('.popup');
-  openPopup(popup);
+  openPopup(popupFullImage);
 }
 
 const createCard = elem => {
@@ -105,35 +77,41 @@ const handleAddElementSubmit = event => {
   generateElements(elementsList, element);
   closePopup(popupAddElem);
   event.target.reset();
-  validateForm(popupAddElemFormSubmit, validationOptions);
 }
 
-const handleKeyDown = (evt, popup) => {
+const handleKeyDown = evt => {
+  const openedPopup = document.querySelector('.popup_opened');
   if (evt.key === 'Escape') {
-    closePopup(popup);
+    closePopup(openedPopup);
   }
 }
 
 const closePopup = popup => {
-  document.removeEventListener('keydown', (evt) => handleKeyDown(evt, popup));
+  document.removeEventListener('keydown', handleKeyDown);
   popup.classList.remove('popup_opened');
 }
 
 const openPopup = popup => {
-  document.addEventListener('keydown', (evt) => handleKeyDown(evt, popup));
+  document.addEventListener('keydown', handleKeyDown);
   popup.classList.add('popup_opened');
 }
 
-const handleClosePopup = evt => {
+const closePopupByOverlayClick = evt => {
   if (evt.target.classList.contains('popup')) {
     closePopup(evt.target);
   }
 }
 
-popupList.forEach(popup => popup.addEventListener('click', handleClosePopup));
+const openAddCardPopup = () => {
+  popupAddElemFormSubmit.reset();
+  validateForm(popupAddElemFormSubmit, validationOptions);
+  openPopup(popupAddElem);
+}
+
+popupList.forEach(popup => popup.addEventListener('click', closePopupByOverlayClick));
 popupAddElemFormSubmit.addEventListener('submit', handleAddElementSubmit);
 editProfileBtn.addEventListener('click', openEditProfile);
-addElemBtn.addEventListener('click', () => openPopup(popupAddElem));
+addElemBtn.addEventListener('click', openAddCardPopup);
 formProfile.addEventListener('submit', handleProfileSubmit);
 
 const initialData = () => initialCards.forEach(elem => generateElements(elementsList, elem));
