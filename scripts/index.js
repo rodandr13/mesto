@@ -25,6 +25,8 @@ const initialCards = [
   }
 ];
 
+const popupList = document.querySelectorAll('.popup');
+
 const addElemBtn = document.querySelector('.profile__add-button');
 const popupAddElem = document.querySelector('.popup_type_add-place');
 
@@ -55,77 +57,85 @@ closeButtons.forEach(button => {
   button.addEventListener('click', () => closePopup(popup));
 })
 
-function generateElements(wrap, elem) {
-  wrap.prepend(createCard(elem));
-}
+const generateElements = (wrap, elem) => wrap.prepend(createCard(elem));
 
-function createCard(elem) {
-  const card = elementTemplate.cloneNode(true);
-  const cardImage = card.querySelector('.element__image');
-  cardImage.alt = 'Фотография: ' + elem.name;
-  cardImage.src = elem.link;
-  card.querySelector('.element__header').textContent = elem.name;
-  card.querySelector('.element__link-full-image').addEventListener('click', openPopupImage);
-  card.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
-  card.querySelector('.element__button_type_like').addEventListener('click', toggleLike);
-  return card;
-}
-
-function openPopupImage(event) {
+const openPopupImage = (event, element) => {
   event.preventDefault();
-  const imageCaption = event.target.closest('.element').querySelector('.element__header').textContent;
-  fullImage.src = event.target.src;
+  const imageCaption = element.name;
+  fullImage.src = element.link;
   fullImage.alt = 'Фотография: ' + imageCaption;
   fullImageCaption.textContent = imageCaption;
   const popup = fullImage.closest('.popup');
   openPopup(popup);
 }
 
-function removeElem(event) {
-  event.target.closest('.element').remove();
+const createCard = elem => {
+  const card = elementTemplate.cloneNode(true);
+  const cardImage = card.querySelector('.element__image');
+  cardImage.alt = 'Фотография: ' + elem.name;
+  cardImage.src = elem.link;
+  card.querySelector('.element__header').textContent = elem.name;
+  card.querySelector('.element__link-full-image').addEventListener('click', event => openPopupImage(event, elem));
+  card.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
+  card.querySelector('.element__button_type_like').addEventListener('click', toggleLike);
+  return card;
 }
 
-function toggleLike(event) {
-  event.target.classList.toggle('element__button_like-active');
-}
+const removeElem = event => event.target.closest('.element').remove();
 
-function openEditProfile() {
+const toggleLike = event => event.target.classList.toggle('element__button_like-active');
+
+const openEditProfile = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  validateForm(editProfileForm);
+  validateForm(editProfileForm, validationOptions);
   openPopup(popupEditProfile);
 }
 
-function handleProfileSubmit(event) {
+const handleProfileSubmit = event => {
   event.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
 
-function handleAddElementSubmit(event) {
+const handleAddElementSubmit = event => {
   event.preventDefault();
   const element = {'name': imageName.value, 'link': imageLink.value};
   generateElements(elementsList, element);
   closePopup(popupAddElem);
   event.target.reset();
+  validateForm(popupAddElemFormSubmit, validationOptions);
 }
 
-function closePopup(popup) {
+const handleKeyDown = (evt, popup) => {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+}
+
+const closePopup = popup => {
+  document.removeEventListener('keydown', (evt) => handleKeyDown(evt, popup));
   popup.classList.remove('popup_opened');
 }
 
-function openPopup(popup) {
+const openPopup = popup => {
+  document.addEventListener('keydown', (evt) => handleKeyDown(evt, popup));
   popup.classList.add('popup_opened');
 }
 
+const handleClosePopup = evt => {
+  if (evt.target.classList.contains('popup')) {
+    closePopup(evt.target);
+  }
+}
+
+popupList.forEach(popup => popup.addEventListener('click', handleClosePopup));
 popupAddElemFormSubmit.addEventListener('submit', handleAddElementSubmit);
 editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', () => openPopup(popupAddElem));
 formProfile.addEventListener('submit', handleProfileSubmit);
 
-function initialData() {
-  initialCards.forEach(elem => generateElements(elementsList, elem));
-}
+const initialData = () => initialCards.forEach(elem => generateElements(elementsList, elem));
 
 initialData();
