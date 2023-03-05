@@ -59,26 +59,26 @@ closeButtons.forEach(button => {
 
 const generateElements = (wrap, elem) => wrap.prepend(createCard(elem));
 
+const openPopupImage = (event, element) => {
+  event.preventDefault();
+  const imageCaption = element.name;
+  fullImage.src = element.link;
+  fullImage.alt = 'Фотография: ' + imageCaption;
+  fullImageCaption.textContent = imageCaption;
+  const popup = fullImage.closest('.popup');
+  openPopup(popup);
+}
+
 const createCard = elem => {
   const card = elementTemplate.cloneNode(true);
   const cardImage = card.querySelector('.element__image');
   cardImage.alt = 'Фотография: ' + elem.name;
   cardImage.src = elem.link;
   card.querySelector('.element__header').textContent = elem.name;
-  card.querySelector('.element__link-full-image').addEventListener('click', openPopupImage);
+  card.querySelector('.element__link-full-image').addEventListener('click', event => openPopupImage(event, elem));
   card.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
   card.querySelector('.element__button_type_like').addEventListener('click', toggleLike);
   return card;
-}
-
-const openPopupImage = event => {
-  event.preventDefault();
-  const imageCaption = event.target.closest('.element').querySelector('.element__header').textContent;
-  fullImage.src = event.target.src;
-  fullImage.alt = 'Фотография: ' + imageCaption;
-  fullImageCaption.textContent = imageCaption;
-  const popup = fullImage.closest('.popup');
-  openPopup(popup);
 }
 
 const removeElem = event => event.target.closest('.element').remove();
