@@ -94,7 +94,7 @@ function toggleLike(event) {
 function openEditProfile() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  validateForm(editProfileForm);
+  validateForm(editProfileForm, validationOptions);
   openPopup(popupEditProfile);
 }
 
@@ -111,7 +111,7 @@ function handleAddElementSubmit(event) {
   generateElements(elementsList, element);
   closePopup(popupAddElem);
   event.target.reset();
-  validateForm(popupAddElemFormSubmit);
+  validateForm(popupAddElemFormSubmit, validationOptions);
 }
 
 const handleKeyDown = (evt, popup) => {
@@ -132,12 +132,9 @@ function openPopup(popup) {
 
 const handleClosePopup = evt => {
   if (evt.target.classList.contains('popup')) {
-    console.log(evt.target)
     closePopup(evt.target);
   }
 }
-
-
 
 popupList.forEach(popup => popup.addEventListener('click', handleClosePopup));
 popupAddElemFormSubmit.addEventListener('submit', handleAddElementSubmit);
