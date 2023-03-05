@@ -57,11 +57,9 @@ closeButtons.forEach(button => {
   button.addEventListener('click', () => closePopup(popup));
 })
 
-function generateElements(wrap, elem) {
-  wrap.prepend(createCard(elem));
-}
+const generateElements = (wrap, elem) => wrap.prepend(createCard(elem));
 
-function createCard(elem) {
+const createCard = elem => {
   const card = elementTemplate.cloneNode(true);
   const cardImage = card.querySelector('.element__image');
   cardImage.alt = 'Фотография: ' + elem.name;
@@ -73,7 +71,7 @@ function createCard(elem) {
   return card;
 }
 
-function openPopupImage(event) {
+const openPopupImage = event => {
   event.preventDefault();
   const imageCaption = event.target.closest('.element').querySelector('.element__header').textContent;
   fullImage.src = event.target.src;
@@ -83,29 +81,25 @@ function openPopupImage(event) {
   openPopup(popup);
 }
 
-function removeElem(event) {
-  event.target.closest('.element').remove();
-}
+const removeElem = event => event.target.closest('.element').remove();
 
-function toggleLike(event) {
-  event.target.classList.toggle('element__button_like-active');
-}
+const toggleLike = event => event.target.classList.toggle('element__button_like-active');
 
-function openEditProfile() {
+const openEditProfile = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
   validateForm(editProfileForm, validationOptions);
   openPopup(popupEditProfile);
 }
 
-function handleProfileSubmit(event) {
+const handleProfileSubmit = event => {
   event.preventDefault();
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
   closePopup(popupEditProfile);
 }
 
-function handleAddElementSubmit(event) {
+const handleAddElementSubmit = event => {
   event.preventDefault();
   const element = {'name': imageName.value, 'link': imageLink.value};
   generateElements(elementsList, element);
@@ -120,12 +114,12 @@ const handleKeyDown = (evt, popup) => {
   }
 }
 
-function closePopup(popup) {
+const closePopup = popup => {
   document.removeEventListener('keydown', (evt) => handleKeyDown(evt, popup));
   popup.classList.remove('popup_opened');
 }
 
-function openPopup(popup) {
+const openPopup = popup => {
   document.addEventListener('keydown', (evt) => handleKeyDown(evt, popup));
   popup.classList.add('popup_opened');
 }
@@ -142,8 +136,6 @@ editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', () => openPopup(popupAddElem));
 formProfile.addEventListener('submit', handleProfileSubmit);
 
-function initialData() {
-  initialCards.forEach(elem => generateElements(elementsList, elem));
-}
+const initialData = () => initialCards.forEach(elem => generateElements(elementsList, elem));
 
 initialData();

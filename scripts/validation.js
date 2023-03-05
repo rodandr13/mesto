@@ -29,9 +29,7 @@ const checkInputValidity = (formElement, inputElement, options) => {
   }
 }
 
-const hasInvalidInput = inputList => {
-  return inputList.some(inputElement => !inputElement.validity.valid);
-}
+const hasInvalidInput = inputList => inputList.some(inputElement => !inputElement.validity.valid);
 
 const toggleButtonState = (inputList, buttonElement, options) => {
   if (hasInvalidInput(inputList)) {
@@ -68,6 +66,5 @@ const validateForm = (formElement, options) => {
     hideInputError(formElement, inputElement, options);
   })
 }
-
 
 enableValidation(validationOptions);
