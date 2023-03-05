@@ -109,6 +109,7 @@ function handleAddElementSubmit(event) {
   generateElements(elementsList, element);
   closePopup(popupAddElem);
   event.target.reset();
+  validateForm(popupAddElemFormSubmit);
 }
 
 function closePopup(popup) {
