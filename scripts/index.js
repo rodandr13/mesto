@@ -114,11 +114,19 @@ function handleAddElementSubmit(event) {
   validateForm(popupAddElemFormSubmit);
 }
 
+const handleKeyDown = (evt, popup) => {
+  if (evt.key === 'Escape') {
+    closePopup(popup);
+  }
+}
+
 function closePopup(popup) {
+  document.removeEventListener('keydown', (evt) => handleKeyDown(evt, popup));
   popup.classList.remove('popup_opened');
 }
 
 function openPopup(popup) {
+  document.addEventListener('keydown', (evt) => handleKeyDown(evt, popup));
   popup.classList.add('popup_opened');
 }
 
@@ -128,6 +136,8 @@ const handleClosePopup = evt => {
     closePopup(evt.target);
   }
 }
+
+
 
 popupList.forEach(popup => popup.addEventListener('click', handleClosePopup));
 popupAddElemFormSubmit.addEventListener('submit', handleAddElementSubmit);
