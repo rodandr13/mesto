@@ -52,7 +52,6 @@ const enableValidation = () => {
 }
 
 const validateForm = (formElement) => {
-  console.log('tet')
   const inputList = Array.from(formElement.querySelectorAll('.form__input'));
   const buttonElement = formElement.querySelector('.form__button');
   toggleButtonState(inputList, buttonElement);
