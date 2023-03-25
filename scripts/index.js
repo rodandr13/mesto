@@ -1,3 +1,6 @@
+import { initialCards } from './constants.js';
+import { validateForm, validationOptions } from  './validation.js'
+
 const popupList = document.querySelectorAll('.popup');
 
 const addElemBtn = document.querySelector('.profile__add-button');
