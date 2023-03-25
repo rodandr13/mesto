@@ -68,3 +68,5 @@ const validateForm = (formElement, options) => {
 }
 
 enableValidation(validationOptions);
+
+export { validationOptions, validateForm }
