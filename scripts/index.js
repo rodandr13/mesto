@@ -1,5 +1,6 @@
 import { initialCards } from './constants.js';
 import { validateForm, validationOptions } from  './validation.js'
+import { Card } from './Card.js';
 
 const popupList = document.querySelectorAll('.popup');
 
@@ -33,7 +34,11 @@ closeButtons.forEach(button => {
   button.addEventListener('click', () => closePopup(popup));
 })
 
-const generateElements = (wrap, elem) => wrap.prepend(createCard(elem));
+
+const generateElements = (wrap, elem) => {
+  const card = new Card(elem, '#element');
+  wrap.prepend(card.createCard());
+}
 
 const openPopupImage = (event, element) => {
   event.preventDefault();
@@ -44,21 +49,21 @@ const openPopupImage = (event, element) => {
   openPopup(popupFullImage);
 }
 
-const createCard = elem => {
-  const card = elementTemplate.cloneNode(true);
-  const cardImage = card.querySelector('.element__image');
-  cardImage.alt = 'Фотография: ' + elem.name;
-  cardImage.src = elem.link;
-  card.querySelector('.element__header').textContent = elem.name;
-  card.querySelector('.element__link-full-image').addEventListener('click', event => openPopupImage(event, elem));
-  card.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
-  card.querySelector('.element__button_type_like').addEventListener('click', toggleLike);
-  return card;
-}
+// const createCard = elem => {
+//   const card = elementTemplate.cloneNode(true);
+//   const cardImage = card.querySelector('.element__image');
+//   cardImage.alt = 'Фотография: ' + elem.name;
+//   cardImage.src = elem.link;
+//   card.querySelector('.element__header').textContent = elem.name;
+//   card.querySelector('.element__link-full-image').addEventListener('click', event => openPopupImage(event, elem));
+//   card.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
+//   card.querySelector('.element__button_type_like').addEventListener('click', toggleLike);
+//   return card;
+// }
 
-const removeElem = event => event.target.closest('.element').remove();
-
-const toggleLike = event => event.target.classList.toggle('element__button_like-active');
+// const removeElem = event => event.target.closest('.element').remove();
+//
+// const toggleLike = event => event.target.classList.toggle('element__button_like-active');
 
 const openEditProfile = () => {
   nameInput.value = profileName.textContent;
@@ -120,3 +125,5 @@ formProfile.addEventListener('submit', handleProfileSubmit);
 const initialData = () => initialCards.forEach(elem => generateElements(elementsList, elem));
 
 initialData();
+
+export { openPopupImage, openPopup }
