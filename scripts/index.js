@@ -1,8 +1,9 @@
-import { initialCards } from './constants.js';
-import { validateForm, validationOptions } from  './validation.js'
-import { Card } from './Card.js';
+import initialCards from './constants.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 const popupList = document.querySelectorAll('.popup');
+const formList = document.querySelectorAll('.form');
 
 const addElemBtn = document.querySelector('.profile__add-button');
 const popupAddElem = document.querySelector('.popup_type_add-place');
@@ -24,10 +25,18 @@ const profileJob = document.querySelector('.profile__subheader');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
 
-const elementTemplate = document.querySelector('#element').content;
 const elementsList = document.querySelector('.elements__list');
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
+
+const validationOptions = {
+  formSelector: '.popup__form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}
 
 closeButtons.forEach(button => {
   const popup = button.closest('.popup');
@@ -36,7 +45,7 @@ closeButtons.forEach(button => {
 
 
 const generateElements = (wrap, elem) => {
-  const card = new Card(elem, '#element');
+  const card = new Card(elem, '#element', openPopupImage);
   wrap.prepend(card.createCard());
 }
 
@@ -49,26 +58,11 @@ const openPopupImage = (event, element) => {
   openPopup(popupFullImage);
 }
 
-// const createCard = elem => {
-//   const card = elementTemplate.cloneNode(true);
-//   const cardImage = card.querySelector('.element__image');
-//   cardImage.alt = 'Фотография: ' + elem.name;
-//   cardImage.src = elem.link;
-//   card.querySelector('.element__header').textContent = elem.name;
-//   card.querySelector('.element__link-full-image').addEventListener('click', event => openPopupImage(event, elem));
-//   card.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
-//   card.querySelector('.element__button_type_like').addEventListener('click', toggleLike);
-//   return card;
-// }
-
-// const removeElem = event => event.target.closest('.element').remove();
-//
-// const toggleLike = event => event.target.classList.toggle('element__button_like-active');
-
 const openEditProfile = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  validateForm(editProfileForm, validationOptions);
+  const formValidator = new FormValidator(validationOptions, editProfileForm);
+  formValidator.enableValidation();
   openPopup(popupEditProfile);
 }
 
@@ -112,7 +106,8 @@ const closePopupByOverlayClick = evt => {
 
 const openAddCardPopup = () => {
   popupAddElemFormSubmit.reset();
-  validateForm(popupAddElemFormSubmit, validationOptions);
+  const formValidator = new FormValidator(validationOptions, popupAddElemFormSubmit);
+  formValidator.enableValidation()
   openPopup(popupAddElem);
 }
 
@@ -125,5 +120,3 @@ formProfile.addEventListener('submit', handleProfileSubmit);
 const initialData = () => initialCards.forEach(elem => generateElements(elementsList, elem));
 
 initialData();
-
-export { openPopupImage, openPopup }
