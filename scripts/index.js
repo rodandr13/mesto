@@ -1,6 +1,6 @@
 import { initialCards } from './constants.js';
 import { validateForm, validationOptions } from  './validation.js'
-import { Card } from './Card.js';
+import Card from './Card.js';
 
 const popupList = document.querySelectorAll('.popup');
 
@@ -24,7 +24,6 @@ const profileJob = document.querySelector('.profile__subheader');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
 
-const elementTemplate = document.querySelector('#element').content;
 const elementsList = document.querySelector('.elements__list');
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
@@ -36,7 +35,7 @@ closeButtons.forEach(button => {
 
 
 const generateElements = (wrap, elem) => {
-  const card = new Card(elem, '#element');
+  const card = new Card(elem, '#element', openPopupImage);
   wrap.prepend(card.createCard());
 }
 
@@ -48,22 +47,6 @@ const openPopupImage = (event, element) => {
   fullImageCaption.textContent = imageCaption;
   openPopup(popupFullImage);
 }
-
-// const createCard = elem => {
-//   const card = elementTemplate.cloneNode(true);
-//   const cardImage = card.querySelector('.element__image');
-//   cardImage.alt = 'Фотография: ' + elem.name;
-//   cardImage.src = elem.link;
-//   card.querySelector('.element__header').textContent = elem.name;
-//   card.querySelector('.element__link-full-image').addEventListener('click', event => openPopupImage(event, elem));
-//   card.querySelector('.element__button_type_remove').addEventListener('click', removeElem);
-//   card.querySelector('.element__button_type_like').addEventListener('click', toggleLike);
-//   return card;
-// }
-
-// const removeElem = event => event.target.closest('.element').remove();
-//
-// const toggleLike = event => event.target.classList.toggle('element__button_like-active');
 
 const openEditProfile = () => {
   nameInput.value = profileName.textContent;
