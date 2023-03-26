@@ -1,4 +1,4 @@
-export class Card {
+class Card {
   constructor(data, templateSelector, openPopupImage) {
     this._link = data.link;
     this._name = data.name;
@@ -7,7 +7,6 @@ export class Card {
   }
 
   _toggleLike = (evt) => {
-    console.log(this)
     evt.target.classList.toggle('element__button_like-active');
   }
 

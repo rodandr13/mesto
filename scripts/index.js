@@ -1,8 +1,9 @@
-import { initialCards } from './constants.js';
-import { validateForm, validationOptions } from  './validation.js'
+import initialCards from './constants.js';
 import Card from './Card.js';
+import FormValidator from './FormValidator.js';
 
 const popupList = document.querySelectorAll('.popup');
+const formList = document.querySelectorAll('.form');
 
 const addElemBtn = document.querySelector('.profile__add-button');
 const popupAddElem = document.querySelector('.popup_type_add-place');
@@ -28,6 +29,15 @@ const elementsList = document.querySelector('.elements__list');
 
 const closeButtons = document.querySelectorAll('.popup__close-button');
 
+const validationOptions = {
+  formSelector: '.popup__form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}
+
 closeButtons.forEach(button => {
   const popup = button.closest('.popup');
   button.addEventListener('click', () => closePopup(popup));
@@ -51,7 +61,8 @@ const openPopupImage = (event, element) => {
 const openEditProfile = () => {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  validateForm(editProfileForm, validationOptions);
+  const formValidator = new FormValidator(validationOptions, editProfileForm);
+  formValidator.enableValidation();
   openPopup(popupEditProfile);
 }
 
@@ -95,7 +106,8 @@ const closePopupByOverlayClick = evt => {
 
 const openAddCardPopup = () => {
   popupAddElemFormSubmit.reset();
-  validateForm(popupAddElemFormSubmit, validationOptions);
+  const formValidator = new FormValidator(validationOptions, popupAddElemFormSubmit);
+  formValidator.enableValidation()
   openPopup(popupAddElem);
 }
 
@@ -109,4 +121,7 @@ const initialData = () => initialCards.forEach(elem => generateElements(elements
 
 initialData();
 
-export { openPopupImage, openPopup }
+formList.forEach((formElement) => {
+  const formValidator = new FormValidator(validationOptions, formElement);
+  formValidator.enableValidation();
+})
