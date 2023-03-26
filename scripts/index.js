@@ -120,8 +120,3 @@ formProfile.addEventListener('submit', handleProfileSubmit);
 const initialData = () => initialCards.forEach(elem => generateElements(elementsList, elem));
 
 initialData();
-
-formList.forEach((formElement) => {
-  const formValidator = new FormValidator(validationOptions, formElement);
-  formValidator.enableValidation();
-})
