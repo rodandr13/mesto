@@ -59,10 +59,9 @@ const openPopupImage = (event, element) => {
 }
 
 const openEditProfile = () => {
+  editProfileForm.reset();
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
-  const formValidator = new FormValidator(validationOptions, editProfileForm);
-  formValidator.enableValidation();
   openPopup(popupEditProfile);
 }
 
@@ -106,8 +105,6 @@ const closePopupByOverlayClick = evt => {
 
 const openAddCardPopup = () => {
   popupAddElemFormSubmit.reset();
-  const formValidator = new FormValidator(validationOptions, popupAddElemFormSubmit);
-  formValidator.enableValidation()
   openPopup(popupAddElem);
 }
 
@@ -117,6 +114,11 @@ editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', openAddCardPopup);
 formProfile.addEventListener('submit', handleProfileSubmit);
 
-const initialData = () => initialCards.forEach(elem => generateElements(elementsList, elem));
+const renderInitialCards = () => initialCards.forEach(elem => generateElements(elementsList, elem));
 
-initialData();
+formList.forEach((formElement) => {
+  const formValidator = new FormValidator(validationOptions, formElement);
+  formValidator.enableValidation();
+})
+
+renderInitialCards();
