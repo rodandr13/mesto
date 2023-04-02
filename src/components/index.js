@@ -1,12 +1,18 @@
+import '../pages/index.css';
+
 import initialCards from './constants.js';
-import Card from './Card.js';
-import FormValidator from './FormValidator.js';
+import Card from './Card/Card.js';
+import FormValidator from './FormValidator/FormValidator.js';
+import Popup from './Popup/Popup.js';
 
 const popupList = document.querySelectorAll('.popup');
 const formList = document.querySelectorAll('.form');
 
 const addElemBtn = document.querySelector('.profile__add-button');
 const popupAddElem = document.querySelector('.popup_type_add-place');
+
+const test = new Popup('.popup_type_add-place');
+console.log(test);
 
 const popupAddElemFormSubmit = document.querySelector('.popup__form_type_add-place');
 const imageName = popupAddElem.querySelector('.form__input_type_image-name');
@@ -111,7 +117,7 @@ const openAddCardPopup = () => {
 popupList.forEach(popup => popup.addEventListener('click', closePopupByOverlayClick));
 popupAddElemFormSubmit.addEventListener('submit', handleAddElementSubmit);
 editProfileBtn.addEventListener('click', openEditProfile);
-addElemBtn.addEventListener('click', openAddCardPopup);
+addElemBtn.addEventListener('click', test.open);
 formProfile.addEventListener('submit', handleProfileSubmit);
 
 const renderInitialCards = () => initialCards.forEach(elem => generateElements(elementsList, elem));
