@@ -1,9 +1,9 @@
 import '../pages/index.css';
 
 import initialCards from './constants.js';
-import Card from './Card/Card.js';
-import FormValidator from './FormValidator/FormValidator.js';
-import Popup from './Popup/Popup.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import Popup from './Popup.js';
 
 const popupList = document.querySelectorAll('.popup');
 const formList = document.querySelectorAll('.form');
