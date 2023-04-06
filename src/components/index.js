@@ -1,9 +1,10 @@
 import '../pages/index.css';
 
 import initialCards from './constants.js';
-import Card from './Card/Card.js';
-import FormValidator from './FormValidator/FormValidator.js';
-import Popup from './Popup/Popup.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+import Popup from './Popup.js';
+import Section from "./Section.js";
 
 const popupList = document.querySelectorAll('.popup');
 const formList = document.querySelectorAll('.form');
@@ -49,11 +50,17 @@ closeButtons.forEach(button => {
   button.addEventListener('click', () => closePopup(popup));
 })
 
+const renderCards = new Section({
+    items: initialCards,
+    renderer: (element) => {
+      const card = new Card(element, '#element', openPopupImage);
+      renderCards.addItem(card.createCard());
+    }
+  },
+  '.elements__list'
+);
 
-const generateElements = (wrap, elem) => {
-  const card = new Card(elem, '#element', openPopupImage);
-  wrap.prepend(card.createCard());
-}
+renderCards.renderItems();
 
 const openPopupImage = (event, element) => {
   event.preventDefault();
@@ -81,7 +88,8 @@ const handleProfileSubmit = event => {
 const handleAddElementSubmit = event => {
   event.preventDefault();
   const element = {'name': imageName.value, 'link': imageLink.value};
-  generateElements(elementsList, element);
+  const card = new Card(element, '#element', openPopupImage);
+  renderCards.addItem(card.createCard());
   closePopup(popupAddElem);
   event.target.reset();
 }
@@ -120,11 +128,7 @@ editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', test.open);
 formProfile.addEventListener('submit', handleProfileSubmit);
 
-const renderInitialCards = () => initialCards.forEach(elem => generateElements(elementsList, elem));
-
 formList.forEach((formElement) => {
   const formValidator = new FormValidator(validationOptions, formElement);
   formValidator.enableValidation();
 })
-
-renderInitialCards();
