@@ -4,6 +4,7 @@ import initialCards from './constants.js';
 import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import Popup from './Popup.js';
+import PopupWithImage from "./PopupWithImage.js";
 import Section from "./Section.js";
 
 const popupList = document.querySelectorAll('.popup');
@@ -13,7 +14,6 @@ const addElemBtn = document.querySelector('.profile__add-button');
 const popupAddElem = document.querySelector('.popup_type_add-place');
 
 const test = new Popup('.popup_type_add-place');
-console.log(test);
 
 const popupAddElemFormSubmit = document.querySelector('.popup__form_type_add-place');
 const imageName = popupAddElem.querySelector('.form__input_type_image-name');
@@ -21,7 +21,10 @@ const imageLink = popupAddElem.querySelector('.form__input_type_image-link');
 
 const popupFullImage = document.querySelector('.popup_type_image');
 const fullImage = popupFullImage.querySelector('.popup__image');
-const fullImageCaption = popupFullImage.querySelector('.popup__image-caption')
+const fullImageCaption = popupFullImage.querySelector('.popup__image-caption');
+
+const test2 = new PopupWithImage('.popup_type_image');
+console.log(test2)
 
 const editProfileForm = document.querySelector('.popup__form_type_edit-profile');
 const editProfileBtn = document.querySelector('.profile__edit-button');
@@ -53,7 +56,10 @@ closeButtons.forEach(button => {
 const render = new Section({
     items: initialCards,
     renderer: (element) => {
-      const card = new Card(element, '#element', openPopupImage);
+      const card = new Card(element, '#element', (evt) => {
+        evt.preventDefault();
+        test2.open(element);
+      });
       render.addItem(card.createCard());
     }
   },
@@ -64,6 +70,7 @@ render.renderItems();
 
 const openPopupImage = (event, element) => {
   event.preventDefault();
+  test2.open(element);
   const imageCaption = element.name;
   fullImage.src = element.link;
   fullImage.alt = 'Фотография: ' + imageCaption;
@@ -88,7 +95,10 @@ const handleProfileSubmit = event => {
 const handleAddElementSubmit = event => {
   event.preventDefault();
   const element = {'name': imageName.value, 'link': imageLink.value};
-  const card = new Card(element, '#element', openPopupImage);
+  const card = new Card(element, '#element', (evt) => {
+    evt.preventDefault();
+    test2.open(element);
+  });
   render.addItem(card.createCard());
   closePopup(popupAddElem);
   event.target.reset();
