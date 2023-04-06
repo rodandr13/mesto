@@ -50,17 +50,17 @@ closeButtons.forEach(button => {
   button.addEventListener('click', () => closePopup(popup));
 })
 
-const renderCards = new Section({
+const render = new Section({
     items: initialCards,
     renderer: (element) => {
       const card = new Card(element, '#element', openPopupImage);
-      renderCards.addItem(card.createCard());
+      render.addItem(card.createCard());
     }
   },
   '.elements__list'
 );
 
-renderCards.renderItems();
+render.renderItems();
 
 const openPopupImage = (event, element) => {
   event.preventDefault();
@@ -89,7 +89,7 @@ const handleAddElementSubmit = event => {
   event.preventDefault();
   const element = {'name': imageName.value, 'link': imageLink.value};
   const card = new Card(element, '#element', openPopupImage);
-  renderCards.addItem(card.createCard());
+  render.addItem(card.createCard());
   closePopup(popupAddElem);
   event.target.reset();
 }
