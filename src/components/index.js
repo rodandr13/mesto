@@ -19,46 +19,6 @@ const profileJob = document.querySelector('.profile__subheader');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
 
-const validationOptions = {
-  formSelector: '.popup__form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-}
-
-const addPlacePopup = new PopupWithForm(
-  {
-    popupSelector: '.popup_type_add-place',
-    submitHandler: (element) => {
-      const card = new Card(element, '#element', (evt) => {
-        evt.preventDefault();
-        imagePopup.open(element);
-      });
-      render.addItem(card.createCard());
-      addPlacePopup.close();
-    }
-  }
-);
-
-const imagePopup = new PopupWithImage('.popup_type_image');
-
-const render = new Section({
-    items: initialCards,
-    renderer: (element) => {
-      const card = new Card(element, '#element', (evt) => {
-        evt.preventDefault();
-        imagePopup.open(element);
-      });
-      render.addItem(card.createCard());
-    }
-  },
-  '.elements__list'
-);
-
-render.renderItems();
-
 const openEditProfile = () => {
   editProfileForm.reset();
   nameInput.value = profileName.textContent;
@@ -73,10 +33,50 @@ const handleProfileSubmit = event => {
   closePopup(popupEditProfile);
 }
 
+const validationOptions = {
+  formSelector: '.popup__form',
+  inputSelector: '.form__input',
+  submitButtonSelector: '.form__button',
+  inactiveButtonClass: 'form__button_inactive',
+  inputErrorClass: 'form__input_type_error',
+  errorClass: 'form__input-error_active'
+}
+
+const createCard = (element) => {
+  const card = new Card(element, '#element', (evt) => {
+    evt.preventDefault();
+    imagePopup.open(element);
+  });
+  return card.createCard();
+}
+
+const addPlacePopup = new PopupWithForm(
+  {
+    popupSelector: '.popup_type_add-place',
+    submitHandler: (element) => {
+      render.addItem(createCard(element));
+      addPlacePopup.close();
+    }
+  }
+);
+
+const imagePopup = new PopupWithImage('.popup_type_image');
+
 editProfileBtn.addEventListener('click', openEditProfile);
 formProfile.addEventListener('submit', handleProfileSubmit);
 
 addElemBtn.addEventListener('click', addPlacePopup.open);
+
+const render = new Section({
+    items: initialCards,
+    renderer: (element) => {
+      render.addItem(createCard(element));
+    }
+  },
+  '.elements__list'
+);
+
+render.renderItems();
 
 formList.forEach((formElement) => {
   const formValidator = new FormValidator(validationOptions, formElement);
