@@ -5,7 +5,8 @@ import Card from './Card.js';
 import FormValidator from './FormValidator.js';
 import PopupWithImage from "./PopupWithImage.js";
 import Section from "./Section.js";
-import PopupWithForm from "./PopupWithForm";
+import PopupWithForm from "./PopupWithForm.js";
+import UserInfo from "./UserInfo.js";
 
 const formList = document.querySelectorAll('.form');
 const addElemBtn = document.querySelector('.profile__add-button');
@@ -19,19 +20,6 @@ const profileJob = document.querySelector('.profile__subheader');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
 
-const openEditProfile = () => {
-  editProfileForm.reset();
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
-  openPopup(popupEditProfile);
-}
-
-const handleProfileSubmit = event => {
-  event.preventDefault();
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
-  closePopup(popupEditProfile);
-}
 
 const validationOptions = {
   formSelector: '.popup__form',
@@ -42,6 +30,11 @@ const validationOptions = {
   errorClass: 'form__input-error_active'
 }
 
+const userInfo = new UserInfo({
+  nameSelector: '.profile__header',
+  jobSelector: '.profile__subheader'
+});
+
 const createCard = (element) => {
   const card = new Card(element, '#element', (evt) => {
     evt.preventDefault();
@@ -49,6 +42,17 @@ const createCard = (element) => {
   });
   return card.createCard();
 }
+
+const editProfile = new PopupWithForm(
+  {
+    popupSelector: '.popup_type_profile',
+    submitHandler: (data) => {
+      console.log(data)
+      userInfo.setUserInfo(data);
+      editProfile.close();
+    }
+  }
+);
 
 const addPlacePopup = new PopupWithForm(
   {
@@ -62,9 +66,14 @@ const addPlacePopup = new PopupWithForm(
 
 const imagePopup = new PopupWithImage('.popup_type_image');
 
-editProfileBtn.addEventListener('click', openEditProfile);
-formProfile.addEventListener('submit', handleProfileSubmit);
+const openEditProfile = () => {
+  const {name, job} = userInfo.getUserInfo();
+  editProfile.open();
+  nameInput.value = name;
+  jobInput.value = job;
+}
 
+editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', addPlacePopup.open);
 
 const render = new Section({
