@@ -7,7 +7,7 @@
 
 * [Ссылка на выполненный проект](https://rodandr13.github.io/mesto/)
 
-![Image alt](https://github.com/rodandr13/mesto/blob/main/images/mesto-readme.JPG?raw=true)
+![Image alt](https://raw.githubusercontent.com/rodandr13/mesto/main/src/images/mesto-readme.JPG)
 
 **Макет**
 
