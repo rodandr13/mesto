@@ -1,6 +1,6 @@
 import './index.css';
 
-import initialCards from '../utils/constants.js';
+import { initialCards, validationOptions } from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -10,25 +10,9 @@ import UserInfo from "../components/UserInfo.js";
 
 const formList = document.querySelectorAll('.form');
 const addElemBtn = document.querySelector('.profile__add-button');
-
-const editProfileForm = document.querySelector('.popup__form_type_edit-profile');
 const editProfileBtn = document.querySelector('.profile__edit-button');
-const popupEditProfile = document.querySelector('.popup_type_profile');
-const formProfile = popupEditProfile.querySelector('.popup__form');
-const profileName = document.querySelector('.profile__header');
-const profileJob = document.querySelector('.profile__subheader');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
-
-
-const validationOptions = {
-  formSelector: '.popup__form',
-  inputSelector: '.form__input',
-  submitButtonSelector: '.form__button',
-  inactiveButtonClass: 'form__button_inactive',
-  inputErrorClass: 'form__input_type_error',
-  errorClass: 'form__input-error_active'
-}
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__header',
