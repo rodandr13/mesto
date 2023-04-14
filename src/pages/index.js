@@ -20,8 +20,7 @@ const userInfo = new UserInfo({
 });
 
 const createCard = (element) => {
-  const card = new Card(element, '#element', (evt) => {
-    evt.preventDefault();
+  const card = new Card(element, '#element', () => {
     imagePopup.open(element);
   });
   return card.createCard();
@@ -31,12 +30,12 @@ const editProfile = new PopupWithForm(
   {
     popupSelector: '.popup_type_profile',
     submitHandler: (data) => {
-      console.log(data)
       userInfo.setUserInfo(data);
       editProfile.close();
     }
   }
 );
+editProfile.setEventListeners();
 
 const addPlacePopup = new PopupWithForm(
   {
@@ -47,8 +46,10 @@ const addPlacePopup = new PopupWithForm(
     }
   }
 );
+addPlacePopup.setEventListeners();
 
 const imagePopup = new PopupWithImage('.popup_type_image');
+imagePopup.setEventListeners();
 
 const openEditProfile = () => {
   const {name, job} = userInfo.getUserInfo();

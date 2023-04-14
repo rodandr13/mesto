@@ -23,7 +23,10 @@ export default class Card {
     this._card.querySelector('.element__button_type_remove').addEventListener('click', this._removeCard);
     this._card.querySelector('.element__link-full-image').addEventListener(
       'click',
-      (evt) => this._openPopupImage(evt, {name: this._name, link: this._link})
+      (evt) => {
+        evt.preventDefault();
+        this._openPopupImage({name: this._name, link: this._link});
+      }
     );
     this._card.querySelector('.element__button_type_like').addEventListener('click', this._toggleLike);
   }
