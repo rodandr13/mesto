@@ -1,6 +1,6 @@
 import './index.css';
 
-import {initialCards, validationOptions} from '../utils/constants.js';
+import {validationOptions} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -87,7 +87,7 @@ const api = new Api({
 
 
 const initialProfile = api.get('/users/me');
-const initialCards2 = api.get('/cards');
+const initialCards = api.get('/cards');
 
 function initialData(promises) {
   Promise.all(promises)
@@ -98,4 +98,4 @@ function initialData(promises) {
     .catch((err) => console.log(err))
 }
 
-initialData([initialProfile, initialCards2])
+initialData([initialProfile, initialCards])
