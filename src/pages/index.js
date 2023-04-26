@@ -9,7 +9,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 
-
 const formList = document.querySelectorAll('.form');
 const addElemBtn = document.querySelector('.profile__add-button');
 const editProfileBtn = document.querySelector('.profile__edit-button');
@@ -20,6 +19,19 @@ const userInfo = new UserInfo({
   nameSelector: '.profile__header',
   jobSelector: '.profile__subheader'
 });
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  headers: {
+    authorization: 'e088005e-e78f-4b2a-a43d-652e65680dd5',
+    'Content-Type': 'application/json'
+  }
+});
+
+
+const initialProfile = api.get('/users/me');
+const initialCards = api.get('/cards');
+
 
 const createCard = (element) => {
   const card = new Card(element, '#element', () => {
@@ -32,8 +44,14 @@ const editProfile = new PopupWithForm(
   {
     popupSelector: '.popup_type_profile',
     submitHandler: (data) => {
-      userInfo.setUserInfo(data);
-      editProfile.close();
+      api.patch('/users/me', data)
+        .then((data) => {
+          userInfo.setUserInfo(data);
+          editProfile.close();
+        })
+        .catch(error => {
+          console.error(error);
+        })
     }
   }
 );
@@ -76,18 +94,6 @@ formList.forEach((formElement) => {
   const formValidator = new FormValidator(validationOptions, formElement);
   formValidator.enableValidation();
 })
-
-const api = new Api({
-  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
-  headers: {
-    authorization: 'e088005e-e78f-4b2a-a43d-652e65680dd5',
-    'Content-Type': 'application/json'
-  }
-});
-
-
-const initialProfile = api.get('/users/me');
-const initialCards = api.get('/cards');
 
 function initialData(promises) {
   Promise.all(promises)
