@@ -1,12 +1,14 @@
 import './index.css';
 
-import { initialCards, validationOptions } from '../utils/constants.js';
+import {initialCards, validationOptions} from '../utils/constants.js';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
+
 
 const formList = document.querySelectorAll('.form');
 const addElemBtn = document.querySelector('.profile__add-button');
@@ -52,27 +54,48 @@ const imagePopup = new PopupWithImage('.popup_type_image');
 imagePopup.setEventListeners();
 
 const openEditProfile = () => {
-  const {name, job} = userInfo.getUserInfo();
+  const {name, about} = userInfo.getUserInfo();
   editProfile.open();
   nameInput.value = name;
-  jobInput.value = job;
+  jobInput.value = about;
 }
 
 editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', addPlacePopup.open);
 
 const render = new Section({
-    items: initialCards,
     renderer: (element) => {
       render.addItem(createCard(element));
-    }
-  },
-  '.elements__list'
+    },
+    selector: '.elements__list'
+  }
 );
 
-render.renderItems();
 
 formList.forEach((formElement) => {
   const formValidator = new FormValidator(validationOptions, formElement);
   formValidator.enableValidation();
 })
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-64',
+  headers: {
+    authorization: 'e088005e-e78f-4b2a-a43d-652e65680dd5',
+    'Content-Type': 'application/json'
+  }
+});
+
+
+const initialProfile = api.get('/users/me');
+const initialCards2 = api.get('/cards');
+
+function initialData(promises) {
+  Promise.all(promises)
+    .then((data) => {
+      userInfo.setUserInfo(data[0]);
+      render.renderItems(data[1]);
+    })
+    .catch((err) => console.log(err))
+}
+
+initialData([initialProfile, initialCards2])
