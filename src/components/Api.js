@@ -28,7 +28,11 @@ export default class Api {
   }
 
   post(endpoint, body) {
-
+    return this._sendRequest({
+      endpoint,
+      method: 'POST',
+      body: JSON.stringify(body)
+    })
   }
 
   put(endpoint, body) {

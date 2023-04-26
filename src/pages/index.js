@@ -61,8 +61,11 @@ const addPlacePopup = new PopupWithForm(
   {
     popupSelector: '.popup_type_add-place',
     submitHandler: (element) => {
-      render.addItem(createCard(element));
-      addPlacePopup.close();
+      api.post('/cards', element)
+        .then((element) => {
+          render.addItem(createCard(element));
+          addPlacePopup.close();
+        })
     }
   }
 );
@@ -99,7 +102,7 @@ function initialData(promises) {
   Promise.all(promises)
     .then((data) => {
       userInfo.setUserInfo(data[0]);
-      render.renderItems(data[1]);
+      render.renderItems(data[1].reverse());
     })
     .catch((err) => console.log(err))
 }
