@@ -92,14 +92,16 @@ const editProfile = new PopupWithForm(
   {
     popupSelector: '.popup_type_profile',
     submitHandler: (data) => {
+      editProfile.setLoadingStatus(true);
       api.patch('/users/me', data)
         .then((data) => {
           userInfo.setUserInfo(data);
           editProfile.close();
         })
-        .catch(error => {
-          console.error(error);
+        .catch((err) => {
+          console.error(err);
         })
+        .finally(() => editProfile.setLoadingStatus(false))
     }
   }
 );
@@ -109,15 +111,17 @@ const editAvatar = new PopupWithForm(
   {
     popupSelector: '.popup_type_avatar',
     submitHandler: (data) => {
-      console.log(data)
+      editAvatar.setLoadingStatus(true);
       api.patch('/users/me/avatar', data)
         .then((data) => {
           userInfo.setAvatar(data);
           editAvatar.close();
+          editAvatar.setLoadingStatus(false);
         })
-        .catch(error => {
-          console.error(error);
+        .catch((err) => {
+          console.error(err);
         })
+        .finally(() => editAvatar.setLoadingStatus(false))
     }
   }
 )
@@ -127,11 +131,16 @@ const addPlacePopup = new PopupWithForm(
   {
     popupSelector: '.popup_type_add-place',
     submitHandler: (element) => {
+      addPlacePopup.setLoadingStatus(true);
       api.post('/cards', element)
         .then((element) => {
           render.addItem(createCard(element));
           addPlacePopup.close();
         })
+        .catch((err) => {
+          console.error(err);
+        })
+        .finally(() => addPlacePopup.setLoadingStatus(false))
     }
   }
 );
@@ -169,7 +178,6 @@ formList.forEach((formElement) => {
 function initialData(promises) {
   Promise.all(promises)
     .then((data) => {
-      console.log(data[0])
       userInfo.setUserInfo(data[0]);
       render.renderItems(data[1].reverse());
     })
