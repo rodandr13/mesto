@@ -33,6 +33,7 @@
 @import "../blocks/element/__count-likes/element__count-likes.css";
 @import "../blocks/element/__button/_type/element__button_type_like.css";
 @import "../blocks/element/__button/_like-active/element__button_like-active.css";
+@import "../blocks/element/__button/_hidden/element__button_hidden.css";
 
 @import "../blocks/footer/footer.css";
 @import "../blocks/footer/__copyright/footer__copyright.css";

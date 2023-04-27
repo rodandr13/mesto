@@ -2,6 +2,7 @@ export default class Card {
   constructor(data, templateSelector, userId, openPopupImage, handleLike) {
     this._link = data.link;
     this._name = data.name;
+    this._owner = data.owner;
     this._likes = data.likes;
     this._cardId = data._id;
     this._templateSelector = templateSelector;
@@ -11,22 +12,23 @@ export default class Card {
   }
 
   _toggleLike = () => {
-    this._updateLikeCount();
+    this.updateLikeCount();
     if (this.isLiked()) {
       this._like.classList.toggle('element__button_like-active');
     } else {
       this._like.classList.toggle('element__button_like-active');
     }
-      this._handleLike(this._cardId);
+    this._handleLike(this._cardId);
 
   }
 
-  _updateLikeCount() {
+  updateLikeCount() {
     const likeCount = this._card.querySelector('.element__count-likes');
     likeCount.textContent = this._likes.length;
   }
-    updateData(data) {
-    this._likes = data.likes;
+
+  updateData(newData) {
+    this._likes = newData.likes;
   }
 
 
@@ -63,9 +65,11 @@ export default class Card {
     cardImage.alt = 'Фотография: ' + this._name;
     cardImage.src = this._link;
     this._like = this._card.querySelector('.element__button_type_like');
-
-    this._updateLikeCount();
-    if(this.isLiked()) {
+    if (this._owner._id !== this._userId) {
+      this._card.querySelector('.element__button_type_remove').classList.add('element__button_hidden');
+    }
+    this.updateLikeCount();
+    if (this.isLiked()) {
       this._like.classList.toggle('element__button_like-active');
     }
     this._setEventListener();

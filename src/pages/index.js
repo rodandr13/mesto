@@ -46,7 +46,7 @@ const createCard = (element) => {
         api.put(`/cards/${cardId}/likes`)
           .then((data) => {
             card.updateData(data)
-            card._updateLikeCount()
+            card.updateLikeCount()
           })
           .catch((err) => {
             console.log(err);
@@ -55,7 +55,7 @@ const createCard = (element) => {
         api.delete(`/cards/${cardId}/likes`)
           .then((data) => {
             card.updateData(data)
-            card._updateLikeCount()
+            card.updateLikeCount()
           })
           .catch((err) => {
             console.log(err);
