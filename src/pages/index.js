@@ -12,13 +12,15 @@ import Api from "../components/Api.js";
 
 const formList = document.querySelectorAll('.form');
 const addElemBtn = document.querySelector('.profile__add-button');
+const editAvatarBtn = document.querySelector('.profile__avatar-link');
 const editProfileBtn = document.querySelector('.profile__edit-button');
 const nameInput = document.querySelector('.form__input_type_name');
 const jobInput = document.querySelector('.form__input_type_job');
 
 const userInfo = new UserInfo({
   nameSelector: '.profile__header',
-  jobSelector: '.profile__subheader'
+  jobSelector: '.profile__subheader',
+  avatarSelector: '.profile__avatar',
 });
 
 const api = new Api({
@@ -90,7 +92,6 @@ const editProfile = new PopupWithForm(
   {
     popupSelector: '.popup_type_profile',
     submitHandler: (data) => {
-      console.log('teeeeeeeeeest')
       api.patch('/users/me', data)
         .then((data) => {
           userInfo.setUserInfo(data);
@@ -103,6 +104,24 @@ const editProfile = new PopupWithForm(
   }
 );
 editProfile.setEventListeners();
+
+const editAvatar = new PopupWithForm(
+  {
+    popupSelector: '.popup_type_avatar',
+    submitHandler: (data) => {
+      console.log(data)
+      api.patch('/users/me/avatar', data)
+        .then((data) => {
+          userInfo.setAvatar(data);
+          editAvatar.close();
+        })
+        .catch(error => {
+          console.error(error);
+        })
+    }
+  }
+)
+editAvatar.setEventListeners();
 
 const addPlacePopup = new PopupWithForm(
   {
@@ -131,6 +150,7 @@ const openEditProfile = () => {
 
 editProfileBtn.addEventListener('click', openEditProfile);
 addElemBtn.addEventListener('click', addPlacePopup.open);
+editAvatarBtn.addEventListener('click', editAvatar.open);
 
 const render = new Section({
     renderer: (element) => {
@@ -149,6 +169,7 @@ formList.forEach((formElement) => {
 function initialData(promises) {
   Promise.all(promises)
     .then((data) => {
+      console.log(data[0])
       userInfo.setUserInfo(data[0]);
       render.renderItems(data[1].reverse());
     })
