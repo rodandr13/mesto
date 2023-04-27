@@ -36,6 +36,11 @@ export default class Api {
   }
 
   put(endpoint, body) {
+    return this._sendRequest({
+      endpoint,
+      method: 'PUT',
+      body: JSON.stringify(body)
+    })
 
   }
   patch(endpoint, body) {
@@ -46,7 +51,10 @@ export default class Api {
     })
   }
   delete(endpoint) {
-
+    return this._sendRequest({
+      endpoint,
+      method: 'DELETE'
+    })
   }
 }
 

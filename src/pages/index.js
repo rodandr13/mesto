@@ -34,9 +34,35 @@ const initialCards = api.get('/cards');
 
 
 const createCard = (element) => {
-  const card = new Card(element, '#element', () => {
-    imagePopup.open(element);
-  });
+  const card = new Card(
+    element,
+    '#element',
+    userInfo.getUserInfo().userId,
+    () => {
+      imagePopup.open(element);
+    },
+    (cardId) => {
+      if (!card.isLiked()) {
+        api.put(`/cards/${cardId}/likes`)
+          .then((data) => {
+            card.updateData(data)
+            card._updateLikeCount()
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      } else {
+        api.delete(`/cards/${cardId}/likes`)
+          .then((data) => {
+            card.updateData(data)
+            card._updateLikeCount()
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    },
+  );
   return card.createCard();
 }
 
