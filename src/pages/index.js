@@ -6,6 +6,7 @@ import FormValidator from '../components/FormValidator.js';
 import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithConfirm from "../components/PopupWithConfirm.js";
 import UserInfo from "../components/UserInfo.js";
 import Api from "../components/Api.js";
 
@@ -32,6 +33,12 @@ const api = new Api({
 const initialProfile = api.get('/users/me');
 const initialCards = api.get('/cards');
 
+const confirmRemove = new PopupWithConfirm(
+  {
+    popupSelector: '.popup_type_confirm'
+  }
+);
+confirmRemove.setEventListeners();
 
 const createCard = (element) => {
   const card = new Card(
@@ -40,6 +47,19 @@ const createCard = (element) => {
     userInfo.getUserInfo().userId,
     () => {
       imagePopup.open(element);
+    },
+    (handleRemove, cardId) => {
+      confirmRemove.open(() => {
+        api.delete(`/cards/${cardId}`)
+          .then(() => {
+            handleRemove();
+            confirmRemove.close();
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      });
+
     },
     (cardId) => {
       if (!card.isLiked()) {
@@ -70,6 +90,7 @@ const editProfile = new PopupWithForm(
   {
     popupSelector: '.popup_type_profile',
     submitHandler: (data) => {
+      console.log('teeeeeeeeeest')
       api.patch('/users/me', data)
         .then((data) => {
           userInfo.setUserInfo(data);
@@ -96,6 +117,7 @@ const addPlacePopup = new PopupWithForm(
   }
 );
 addPlacePopup.setEventListeners();
+
 
 const imagePopup = new PopupWithImage('.popup_type_image');
 imagePopup.setEventListeners();

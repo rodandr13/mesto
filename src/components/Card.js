@@ -1,12 +1,13 @@
 export default class Card {
-  constructor(data, templateSelector, userId, openPopupImage, handleLike) {
+  constructor(data, templateSelector, userId, openPopupImage, removeCard, handleLike) {
     this._link = data.link;
     this._name = data.name;
     this._owner = data.owner;
     this._likes = data.likes;
     this._cardId = data._id;
     this._templateSelector = templateSelector;
-    this._openPopupImage = openPopupImage;
+    this._openPopupImage = openPopupImage
+    this._removeCard = removeCard;
     this._handleLike = handleLike;
     this._userId = userId;
   }
@@ -32,8 +33,8 @@ export default class Card {
   }
 
 
-  _removeCard = (event) => {
-    event.target.closest('.element').remove();
+  _deleteCard = () => {
+    this._removeCard(() => this._card.remove(), this._cardId);
   }
 
   _getTemplate() {
@@ -46,7 +47,7 @@ export default class Card {
   }
 
   _setEventListener() {
-    this._card.querySelector('.element__button_type_remove').addEventListener('click', this._removeCard);
+    this._card.querySelector('.element__button_type_remove').addEventListener('click', this._deleteCard);
     this._card.querySelector('.element__link-full-image').addEventListener(
       'click',
       (evt) => {
