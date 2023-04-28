@@ -12,20 +12,12 @@ export default class Card {
     this._userId = userId;
   }
 
-  _toggleLike = () => {
-    this.updateLikeCount();
-    if (this.isLiked()) {
-      this._like.classList.toggle('element__button_like-active');
-    } else {
-      this._like.classList.toggle('element__button_like-active');
-    }
-    this._handleLike(this._cardId);
-
+  toggleLike = () => {
+    this._like.classList.toggle('element__button_like-active');
   }
 
   updateLikeCount() {
-    const likeCount = this._card.querySelector('.element__count-likes');
-    likeCount.textContent = this._likes.length;
+    this._likeCountElement.textContent = this._likes.length;
   }
 
   updateData(newData) {
@@ -55,17 +47,19 @@ export default class Card {
         this._openPopupImage({name: this._name, link: this._link});
       }
     );
-    this._card.querySelector('.element__button_type_like').addEventListener('click', this._toggleLike);
+    this._card.querySelector('.element__button_type_like').addEventListener('click', () => {
+      this._handleLike(this._cardId);
+    });
   }
 
   createCard() {
     this._card = this._getTemplate();
     const cardImage = this._card.querySelector('.element__image');
-
     this._card.querySelector('.element__header').textContent = this._name;
     cardImage.alt = 'Фотография: ' + this._name;
     cardImage.src = this._link;
     this._like = this._card.querySelector('.element__button_type_like');
+    this._likeCountElement = this._card.querySelector('.element__count-likes');
     if (this._owner._id !== this._userId) {
       this._card.querySelector('.element__button_type_remove').classList.add('element__button_hidden');
     }

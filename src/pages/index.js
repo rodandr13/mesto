@@ -67,8 +67,9 @@ const createCard = (element) => {
       if (!card.isLiked()) {
         api.put(`/cards/${cardId}/likes`)
           .then((data) => {
-            card.updateData(data)
-            card.updateLikeCount()
+            card.updateData(data);
+            card.updateLikeCount();
+            card.toggleLike();
           })
           .catch((err) => {
             console.log(err);
@@ -76,8 +77,9 @@ const createCard = (element) => {
       } else {
         api.delete(`/cards/${cardId}/likes`)
           .then((data) => {
-            card.updateData(data)
-            card.updateLikeCount()
+            card.updateData(data);
+            card.updateLikeCount();
+            card.toggleLike();
           })
           .catch((err) => {
             console.log(err);
@@ -151,10 +153,9 @@ const imagePopup = new PopupWithImage('.popup_type_image');
 imagePopup.setEventListeners();
 
 const openEditProfile = () => {
-  const {name, about} = userInfo.getUserInfo();
+  const userData = userInfo.getUserInfo();
   editProfile.open();
-  nameInput.value = name;
-  jobInput.value = about;
+  editProfile.setInputValues(userData);
 }
 
 editProfileBtn.addEventListener('click', openEditProfile);
